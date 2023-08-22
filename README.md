@@ -1,5 +1,6 @@
 # Building a SOC + Honeynet in Azure (Live Traffic)
-![Cloud Honeynet / SOC](https://i.imgur.com/ZWxe03e.jpg)
+![image](https://github.com/Adonis-TG1/Cloud-SOC/assets/142800366/a4604463-d3b0-4e6f-8bf1-91aa421ab93e)
+
 
 ## Introduction
 
@@ -32,44 +33,53 @@ For the "BEFORE" metrics, all resources were originally deployed, exposed to the
 For the "AFTER" metrics, Network Security Groups were hardened by blocking ALL traffic with the exception of my admin workstation, and all other resources were protected by their built-in firewalls as well as Private Endpoint
 
 ## Attack Maps Before Hardening / Security Controls
-![NSG Allowed Inbound Malicious Flows](https://i.imgur.com/1qvswSX.png)<br>
-![Linux Syslog Auth Failures](https://i.imgur.com/G1YgZt6.png)<br>
-![Windows RDP/SMB Auth Failures](https://i.imgur.com/ESr9Dlv.png)<br>
+
+## nsg-malicious-allowed-in 
+![image](https://github.com/Adonis-TG1/Cloud-SOC/assets/142800366/429e0636-8c06-4d1f-bf3d-652f15d155f7)
+<br>
+## syslog-ssh-auth-fail 
+![image](https://github.com/Adonis-TG1/Cloud-SOC/assets/142800366/95965347-8e90-47d6-829d-a7d8a79722b4)
+)<br>
+## windows-rdp-auth-fail 
+![image](https://github.com/Adonis-TG1/Cloud-SOC/assets/142800366/efd950aa-2a0e-439b-9dd0-49fc84df2e96)
+<br>
+
+
 
 ## Metrics Before Hardening / Security Controls
 
 The following table shows the metrics we measured in our insecure environment for 24 hours:
-Start Time 2023-03-15 17:04:29
-Stop Time 2023-03-16 17:04:29
+Start Time 2023-08-17 11:58:25
+Stop Time 2023-08-18 11:58:25
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 19470
-| Syslog                   | 3028
-| SecurityAlert            | 10
-| SecurityIncident         | 348
-| AzureNetworkAnalytics_CL | 843
+| SecurityEvent            | 24899
+| Syslog                   | 3842
+| SecurityAlert            | 19
+| SecurityIncident         | 289
+| AzureNetworkAnalytics_CL | 1803
 
-## Attack Maps Before Hardening / Security Controls
+## Attack Maps After Hardening / Security Controls
 
 ```All map queries actually returned no results due to no instances of malicious activity for the 24 hour period after hardening.```
 
 ## Metrics After Hardening / Security Controls
 
 The following table shows the metrics we measured in our environment for another 24 hours, but after we have applied security controls:
-Start Time 2023-03-18 15:37
-Stop Time	2023-03-19 15:37
+Start Time 2023-08-20 10:45:11
+Stop Time	2023-08-21 10:45:11
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 8778
-| Syslog                   | 25
+| SecurityEvent            | 1978
+| Syslog                   | 1
 | SecurityAlert            | 0
 | SecurityIncident         | 0
 | AzureNetworkAnalytics_CL | 0
 
 ## Conclusion
 
-In this project, a mini honeynet was constructed in Microsoft Azure and log sources were integrated into a Log Analytics workspace. Microsoft Sentinel was employed to trigger alerts and create incidents based on the ingested logs. Additionally, metrics were measured in the insecure environment before security controls were applied, and then again after implementing security measures. It is noteworthy that the number of security events and incidents were drastically reduced after the security controls were applied, demonstrating their effectiveness.
+In this project, a mini honeynet was constructed in Microsoft Azure and log sources were integrated into a Log Analytics workspace. Microsoft Sentinel was employed to trigger alerts and create incidents based on the ingested logs. Additionally, metrics were measured in the insecure environment before security controls were applied, and then again after implementing security measures. It is noteworthy that the number of security events and incidents were drastically reduced after the security controls were applied, demonstrating their effectiveness. In particular, there was a %92.06 reduction in Security event, %99.97% reduction in Syslog events and a %100 reduction for the remainders. 
 
 It is worth noting that if the resources within the network were heavily utilized by regular users, it is likely that more security events and alerts may have been generated within the 24-hour period following the implementation of the security controls.
